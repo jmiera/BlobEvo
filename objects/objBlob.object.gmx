@@ -26,9 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>image_speed = 0.5;
-blob_speed = 1;     //Initialize blob's speed trait. Pixels/step.
-blob_awake = true;  //Initialize the blob to be asleep.
-
+blob_food_count = 0;    //The blob starts out with an empty tummy
+blob_speed = 6;     //Initialize blob's speed trait. Pixels/step.
+blob_awake = false;  //Initialize the blob to be asleep.
+//blob_type = HERBIVORE;  //Initialize to eat the green stuff (can mutate to CARNIVORE, OMNIVORE, or SCAVENGER)
 </string>
           </argument>
         </arguments>
