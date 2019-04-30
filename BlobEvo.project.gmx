@@ -15,7 +15,14 @@
   <objects name="objects">
     <object>objects\objBlob</object>
     <object>objects\objGreens</object>
+    <object>objects\objField</object>
   </objects>
+  <rooms name="rooms">
+    <room>rooms\room0</room>
+  </rooms>
+  <constants number="1">
+    <constant name="TICKS_PER_SECOND">32</constant>
+  </constants>
   <help>
     <rtf>help.rtf</rtf>
   </help>
