@@ -26,7 +26,7 @@
     <object>objects\objStartStop</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
+    <room>rooms\rmBattleField</room>
   </rooms>
   <constants number="1">
     <constant name="TICKS_PER_SECOND">32</constant>
