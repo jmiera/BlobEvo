@@ -54,7 +54,7 @@ image_index = 0;
     image_index = 1;
     with (objBlob)
     {
-        blob_awake = false;
+        blob_awake = true;
     }
 }
 else
@@ -62,7 +62,10 @@ else
     image_index = 0;
     with (objBlob)
     {
-        blob_awake = true;
+        blob_awake = false;
+        blob_seek_x = x;
+        blob_seek_y = y;
+        speed = 0;
     }
 }
 </string>

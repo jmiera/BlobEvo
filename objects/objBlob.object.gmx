@@ -72,7 +72,9 @@ if (!blob_awake)
 else if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
 {
     var valid_point_found = false;
-    while (!valid_point_found)
+    var max_tries = 100;
+    var tries = 0;
+    while (!valid_point_found &amp;&amp; tries &lt; max_tries)
     {
         var theta = random_range(0,360);
         var min_dist = (longest_seek_distance - veer_distance)/2+veer_distance;
@@ -92,9 +94,51 @@ else if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
                 valid_point_found = false;  //Then try again to seek a different point
             }
         }
+        tries++;
     }
 }
-move_towards_point(blob_seek_x, blob_seek_y, blob_speed);
+else
+{
+    move_towards_point(blob_seek_x, blob_seek_y, blob_speed);
+    if (x &gt; getFieldRightBound()
+                || x &lt; getFieldLeftBound()
+                || y &gt; getFieldBottomBound()
+                || y &lt; getFieldTopBound())
+    {
+        speed = 0;
+        blob_seek_x = x;
+        blob_seek_y = y;
+        blob_awake = false;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="objGreens">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Eat Greens
+with (other)
+{
+    instance_destroy();
+}
+blob_food_count++;
 </string>
           </argument>
         </arguments>
