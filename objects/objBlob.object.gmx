@@ -3,7 +3,7 @@
   <spriteName>sprBlob</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-10</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -25,11 +25,76 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_speed = 0.5;
+            <string>///Initialize Blob
+image_speed = 0.5;
+blob_food_requirement = 1;  //The number of food needed to stay alive. Each additional food item will = 1 offspring.
 blob_food_count = 0;    //The blob starts out with an empty tummy
 blob_speed = 6;     //Initialize blob's speed trait. Pixels/step.
 blob_awake = false;  //Initialize the blob to be asleep.
-//blob_type = HERBIVORE;  //Initialize to eat the green stuff (can mutate to CARNIVORE, OMNIVORE, or SCAVENGER)
+blob_sight = 32;    //Sight range in pixels (for seeking food and avoiding carnivores)
+veer_distance = 64;//Range at which to choose a new direction
+blob_seek_x = x;    //The coordinates towards which the blob will move, until getting within veering distance, then the blob will choose a new direction to go to
+blob_seek_y = y;
+longest_seek_distance = 128;//The furthest away a blob will set its seeking coordinates
+//blob_percent_herbivore = 100;
+//blob_percent_carnivore = 0;
+//blob_percent_scavenger = 0;
+mutation_percent_change = 5;//Can randomly change all mutatable stats by x% each generation
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Blob Moving
+//Test algorithm. move until full, then move to nearest place off field
+if (!blob_awake)
+{
+    blob_seek_x = x;
+    blob_seek_y = y;
+}
+else if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
+{
+    var valid_point_found = false;
+    while (!valid_point_found)
+    {
+        var theta = random_range(0,360);
+        var min_dist = (longest_seek_distance - veer_distance)/2+veer_distance;
+        var dist = random_range(min_dist, longest_seek_distance);
+        var dx = lengthdir_x(dist, theta);
+        var dy = lengthdir_y(dist, theta);
+        blob_seek_x = x+dx;
+        blob_seek_y = y+dy;
+        valid_point_found = true;   //Assume the point we found was valid (optimistic)
+        if (blob_food_count &lt; blob_food_requirement)    //But if the blob's belly isn't full yet
+        {
+            if (blob_seek_x &gt; getFieldRightBound()      //and the blob tries to leave
+                || blob_seek_x &lt; getFieldLeftBound()
+                || blob_seek_y &gt; getFieldBottomBound()
+                || blob_seek_y &lt; getFieldTopBound())
+            {
+                valid_point_found = false;  //Then try again to seek a different point
+            }
+        }
+    }
+}
+move_towards_point(blob_seek_x, blob_seek_y, blob_speed);
 </string>
           </argument>
         </arguments>

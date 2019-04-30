@@ -32,8 +32,94 @@ day_duration = 15*TICKS_PER_SECOND;  //duration of a "day" in ticks.
 time = 0;   //time in seconds of the "day" Loops from 0 to 2*day_duration, and then back to 0. From time=0-day_duration, it is day time. From time=day_duration-2*day_duration, it's night time
 field_width = room_width*2/3;   //The width of the field in which
 field_height = room_height*2/3;
-lx = room_width/6;
-ly = room_height/6;
+o_x = room_width/6;
+o_y = room_height/6;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Create first blobs
+while (instance_number(objBlob) &lt; blob_count_seed)
+{
+    var blob = instance_create(0,0,objBlob)
+    var rx, ry;
+    rx = random_range(o_x, o_x+field_width);
+    ry = random_range(o_y, o_y+field_height);
+    var snap_up_down = choose(0,1);
+    if (snap_up_down)
+    {
+        blob.x = rx;
+        ry -= o_y;
+        if (ry &gt; field_height / 2)
+        {
+            blob.y = o_y+field_height;//+sprite_get_height(object_get_sprite(blob));
+        }
+        else
+        {
+            blob.y = o_y;//-sprite_get_height(object_get_sprite(blob));
+        }
+    }
+    else
+    {
+        blob.y = ry;
+        rx -= o_x;
+        if (rx &gt; field_width / 2)
+        {
+            blob.x = o_x+field_width;//+sprite_get_width(object_get_sprite(blob));
+        }
+        else
+        {
+            blob.x = o_x;//-sprite_get_width(object_get_sprite(blob));
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Create Initial Greens
+while (instance_number(objGreens) &lt; greens_count_seed)
+{
+    var buff = 16;
+    var rx, ry;
+    rx = random_range(o_x+buff, o_x+field_width-buff);
+    ry = random_range(o_y+buff, o_y+field_height-buff);
+    instance_create(rx, ry, objGreens);
+}
 </string>
           </argument>
         </arguments>
@@ -56,9 +142,10 @@ ly = room_height/6;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var ccc = draw_get_color();
+            <string>///Draw field
+var ccc = draw_get_color();
 draw_set_color(c_olive);
-draw_rectangle(lx, ly, lx+field_width, ly+field_height, 0);
+draw_rectangle(o_x, o_y, o_x+field_width, o_y+field_height, 0);
 draw_set_color(ccc);
 </string>
           </argument>

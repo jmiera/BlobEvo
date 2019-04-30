@@ -9,13 +9,21 @@
     <sprite>sprites\sprBlob</sprite>
     <sprite>sprites\sprGreens</sprite>
     <sprite>sprites\sprWaste</sprite>
+    <sprite>sprites\sprStartStopBtn</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\getFieldRightBound.gml</script>
+    <script>scripts\getFieldBottomBound.gml</script>
+    <script>scripts\getFieldLeftBound.gml</script>
+    <script>scripts\getFieldTopBound.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\objBlob</object>
     <object>objects\objGreens</object>
     <object>objects\objField</object>
+    <object>objects\objStartStop</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
