@@ -28,8 +28,9 @@
   <rooms name="rooms">
     <room>rooms\rmBattleField</room>
   </rooms>
-  <constants number="1">
+  <constants number="2">
     <constant name="TICKS_PER_SECOND">32</constant>
+    <constant name="DEBUG_BLOBS">1</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

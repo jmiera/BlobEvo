@@ -28,7 +28,7 @@
             <string>///Initialize field and gameplay
 greens_count_seed = 100;
 blob_count_seed = 10;
-day_duration = 15*TICKS_PER_SECOND;  //duration of a "day" in ticks.
+day_duration = 8*TICKS_PER_SECOND;  //duration of a "day" in ticks.
 time = 0;   //time in seconds of the "day" Loops from 0 to 2*day_duration, and then back to 0. From time=0-day_duration, it is day time. From time=day_duration-2*day_duration, it's night time
 field_width = room_width*2/3;   //The width of the field in which
 field_height = room_height*2/3;
