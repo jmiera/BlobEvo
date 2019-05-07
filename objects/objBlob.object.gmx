@@ -64,19 +64,19 @@ mutation_percent_change = 5;//Can randomly change all mutatable stats by x% each
             <kind>1</kind>
             <string>///Blob Moving
 //Test algorithm. move until full, then move to nearest place off field
-if (!blob_awake)
+if (!blob_awake)    //If the blob isn't awake, we don't want it moving
 {
-    blob_seek_x = x;
+    blob_seek_x = x;//Reset the coordinates which the blob seeks to follow to the blob's current coordinates
     blob_seek_y = y;
 }
-else if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
+else if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)   //If the blob is within veering range of the coordinates they were seeking
 {
-    var valid_point_found = false;
-    var max_tries = 100;
-    var tries = 0;
-    while (!valid_point_found &amp;&amp; tries &lt; max_tries)
+    var valid_point_found = false;  //we haven't found valid coordinates to seek yet because we haven't done the calculation to find new coordinates yet
+    var max_tries = 100;    //Just in case, we will limit the tries to find new valid coordinates to 100.
+    var tries = 0;  //We haven't made any tries to find new coordinates to seek yet
+    while (!valid_point_found &amp;&amp; tries &lt; max_tries) //While we haven't found valid coordinates to seek yet, and we haven't reached our max number of tries yet
     {
-        var theta = random_range(0,360);
+        var theta = random_range(0,360);    //
         var min_dist = (longest_seek_distance - veer_distance)/2+veer_distance;
         var dist = random_range(min_dist, longest_seek_distance);
         var dx = lengthdir_x(dist, theta);

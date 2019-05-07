@@ -34,6 +34,40 @@ field_width = room_width*2/3;   //The width of the field in which
 field_height = room_height*2/3;
 o_x = room_width/6;
 o_y = room_height/6;
+alarm[0] = day_duration;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Kill off the stragglers
+with (objBlob)
+{
+    if (blob_food_count == 0 || blob_awake)
+    {
+        instance_destroy();
+    }
+    blob_food_count = 0;
+    blob_awake = true;
+}
+alarm[0] = day_duration;
 </string>
           </argument>
         </arguments>
