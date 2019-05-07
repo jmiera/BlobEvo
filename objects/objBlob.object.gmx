@@ -82,6 +82,13 @@ Everything should have a cost, and things should have opposites. For example, to
           <argument>
             <kind>1</kind>
             <string>///Blob Moving
+var blob_food_requirement = ds_map_find_value(blob_stats, "food_requirement");
+var blob_speed = ds_map_find_value(blob_stats, "speed");
+var blob_sight = ds_map_find_value(blob_stats, "sight");
+var veer_distance = ds_map_find_value(blob_stats, "veer_distance");
+var longest_seek_distance = ds_map_find_value(blob_stats, "longest_seek_distance");
+//var blob_offspring_food_ratio = ds_map_find_value(blob_stats, "offspring_food_ratio");
+
 //Test algorithm. move until full, then move to nearest place off field
 if (!blob_awake)    //If the blob isn't awake, we don't want it moving
 {
@@ -184,6 +191,11 @@ blob_food_count++;
 draw_sprite(sprite_index, image_index, x, y);
 if (DEBUG_BLOBS)
 {
+    var blob_food_requirement = ds_map_find_value(blob_stats, "food_requirement");
+    var blob_speed = ds_map_find_value(blob_stats, "speed");
+    var blob_sight = ds_map_find_value(blob_stats, "sight");
+    var veer_distance = ds_map_find_value(blob_stats, "veer_distance");
+    var longest_seek_distance = ds_map_find_value(blob_stats, "longest_seek_distance");
     var ccc = draw_get_color();
     draw_set_color(c_red);
     draw_arrow(x, y, blob_seek_x, blob_seek_y, 4);
