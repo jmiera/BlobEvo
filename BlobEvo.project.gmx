@@ -14,10 +14,17 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\getFieldRightBound.gml</script>
-    <script>scripts\getFieldBottomBound.gml</script>
-    <script>scripts\getFieldLeftBound.gml</script>
-    <script>scripts\getFieldTopBound.gml</script>
+    <scripts name="global">
+      <script>scripts\getFieldBottomBound.gml</script>
+      <script>scripts\getFieldTopBound.gml</script>
+      <script>scripts\getFieldLeftBound.gml</script>
+      <script>scripts\getFieldRightBound.gml</script>
+    </scripts>
+    <scripts name="local">
+      <scripts name="field">
+        <script>scripts\scrField_ReplenishGreens.gml</script>
+      </scripts>
+    </scripts>
   </scripts>
   <objects name="objects">
     <object>objects\objBlob</object>

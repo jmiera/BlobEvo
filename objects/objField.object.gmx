@@ -26,7 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize field and gameplay
-greens_count_seed = 100;
+greens_count_seed = 20;
 blob_count_seed = 10;
 day_duration = 8*TICKS_PER_SECOND;  //duration of a "day" in ticks.
 time = 0;   //time in seconds of the "day" Loops from 0 to 2*day_duration, and then back to 0. From time=0-day_duration, it is day time. From time=day_duration-2*day_duration, it's night time
@@ -35,6 +35,7 @@ field_height = room_height*2/3;
 o_x = room_width/6;
 o_y = room_height/6;
 alarm[0] = day_duration;
+generation = 1;//Start at generation 1
 </string>
           </argument>
         </arguments>
@@ -57,10 +58,10 @@ alarm[0] = day_duration;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Kill off the stragglers
+            <string>///Kill off stragglers, Survivors reproduce
 with (objBlob)
 {
-    if (blob_food_count == 0 || blob_awake)
+    if (blob_food_count == 0 || blob_awake) //If at the end of the day they don't have food or are still searching for food
     {
         instance_destroy();
     }
@@ -68,12 +69,19 @@ with (objBlob)
     {
         blob_food_count = 0;
         blob_awake = true;
-        if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
+        if (DEBUG_BLOBS &amp;&amp; distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
         {
             show_debug_message("Should be moving now");
         }
+        
     }
 }
+with (objGreens)
+{
+    instance_destroy();
+}
+scrField_ReplenishGreens();
+generation++;
 alarm[0] = day_duration;
 </string>
           </argument>
@@ -153,14 +161,15 @@ while (instance_number(objBlob) &lt; blob_count_seed)
           <argument>
             <kind>1</kind>
             <string>///Create Initial Greens
-while (instance_number(objGreens) &lt; greens_count_seed)
+scrField_ReplenishGreens();
+/*while (instance_number(objGreens) &lt; greens_count_seed)
 {
     var buff = 16;
     var rx, ry;
     rx = random_range(o_x+buff, o_x+field_width-buff);
     ry = random_range(o_y+buff, o_y+field_height-buff);
     instance_create(rx, ry, objGreens);
-}
+}*/
 </string>
           </argument>
         </arguments>
@@ -187,6 +196,8 @@ while (instance_number(objGreens) &lt; greens_count_seed)
 var ccc = draw_get_color();
 draw_set_color(c_olive);
 draw_rectangle(o_x, o_y, o_x+field_width, o_y+field_height, 0);
+draw_set_color(c_white);
+draw_text(16, 16, string(generation));
 draw_set_color(ccc);
 </string>
           </argument>

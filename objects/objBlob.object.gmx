@@ -27,19 +27,38 @@
             <kind>1</kind>
             <string>///Initialize Blob
 image_speed = 0.5;
-blob_food_requirement = 1;  //The number of food needed to stay alive. Each additional food item will = 1 offspring.
+blob_stats = ds_map_create();
+ds_map_add(blob_stats, "food_requirement", 1);  //The number of food needed to stay alive. Each additional food item will = 1 offspring.
+ds_map_add(blob_stats, "speed", 6);         //Initialize blob's speed trait. Pixels/step.
+ds_map_add(blob_stats, "sight", 32);        //Sight range in pixels (for seeking food and avoiding carnivores)
+ds_map_add(blob_stats, "veer_distance", 64);//How soon before reaching the target coordinates the blob is seeking will the blob veer away
+ds_map_add(blob_stats, "longest_seek_distance", 128);   //The furthest distance the blob will set its seeking coordinates
+ds_map_add(blob_stats, "instinct", 0);      //From 0 to 1, the percentage affects how likely movement will random (0), and how much will be determined by what it sees (food, enemy, perimiter)
+ds_map_add(blob_stats, "size", 1);          //How big is the blob
+ds_map_add(blob_stats, "offspring_food_ratio", 0.5);    //The ratio of offspring to food consumed by the blob
+
 blob_food_count = 0;    //The blob starts out with an empty tummy
-blob_speed = 6;     //Initialize blob's speed trait. Pixels/step.
-blob_awake = false;  //Initialize the blob to be asleep.
-blob_sight = 32;    //Sight range in pixels (for seeking food and avoiding carnivores)
-veer_distance = 64;//Range at which to choose a new direction
-blob_seek_x = x;    //The coordinates towards which the blob will move, until getting within veering distance, then the blob will choose a new direction to go to
+blob_awake = false;     //Initialize the blob to be asleep.
+blob_seek_x = x;        //The coordinates towards which the blob will move, until getting within veering distance, then the blob will choose a new direction to go to
 blob_seek_y = y;
+mutation_percent_change = 5;//Can randomly change all mutatable stats by x% each generation
+
+/*blob_food_requirement = 1;  
+blob_food_count = 0;    
+blob_speed = 6;     
+blob_sight = 32;    
+veer_distance = 64;//Range at which to choose a new direction
 longest_seek_distance = 128;//The furthest away a blob will set its seeking coordinates
+blob_offspring_food_ratio = 0.5;    //The offspring/food ratio
+*/
+
+/*
+For future reference:
+Everything should have a cost, and things should have opposites. For example, to increase size, stealth must decrease because they have an opposite relationship.
 //blob_percent_herbivore = 100;
 //blob_percent_carnivore = 0;
 //blob_percent_scavenger = 0;
-mutation_percent_change = 5;//Can randomly change all mutatable stats by x% each generation
+*/
 </string>
           </argument>
         </arguments>
