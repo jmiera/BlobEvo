@@ -100,10 +100,10 @@ else if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)   //If 
 else
 {
     move_towards_point(blob_seek_x, blob_seek_y, blob_speed);
-    if (x &gt; getFieldRightBound()
+    if (blob_food_count &gt; 0 &amp;&amp; (x &gt; getFieldRightBound()
                 || x &lt; getFieldLeftBound()
                 || y &gt; getFieldBottomBound()
-                || y &lt; getFieldTopBound())
+                || y &lt; getFieldTopBound()))
     {
         speed = 0;
         blob_seek_x = x;
@@ -161,12 +161,18 @@ blob_food_count++;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(sprite_index, image_index, x, y);
+            <string>///Draw self and debug features
+draw_sprite(sprite_index, image_index, x, y);
 if (DEBUG_BLOBS)
 {
     var ccc = draw_get_color();
     draw_set_color(c_red);
     draw_arrow(x, y, blob_seek_x, blob_seek_y, 4);
+    draw_circle(x, y, veer_distance, 1);
+    draw_set_color(c_green);
+    var str_a = "zzz";
+    if (blob_awake) str_a = ":)";
+    draw_text(x, y, string(blob_food_count) + ", " + str_a);
     draw_set_color(ccc);
 }
 </string>

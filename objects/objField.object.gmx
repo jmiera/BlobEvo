@@ -64,8 +64,15 @@ with (objBlob)
     {
         instance_destroy();
     }
-    blob_food_count = 0;
-    blob_awake = true;
+    else
+    {
+        blob_food_count = 0;
+        blob_awake = true;
+        if (distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
+        {
+            show_debug_message("Should be moving now");
+        }
+    }
 }
 alarm[0] = day_duration;
 </string>
