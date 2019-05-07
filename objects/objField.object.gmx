@@ -26,8 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>///Initialize field and gameplay
-greens_count_seed = 20;
-blob_count_seed = 10;
+greens_count_seed = 30;
+blob_count_seed = 25;
 day_duration = 8*TICKS_PER_SECOND;  //duration of a "day" in ticks.
 time = 0;   //time in seconds of the "day" Loops from 0 to 2*day_duration, and then back to 0. From time=0-day_duration, it is day time. From time=day_duration-2*day_duration, it's night time
 field_width = room_width*2/3;   //The width of the field in which
@@ -61,34 +61,37 @@ generation = 1;//Start at generation 1
             <string>///Kill off stragglers, Survivors reproduce
 with (objBlob)
 {
-    if (/*blob_food_count == 0 || */blob_awake) //If at the end of the day they don't have food or are still searching for food
+    age++;
+}
+with (objBlob)
+{
+    if (age &gt; 0)
     {
-        instance_destroy();
-    }
-    else
-    {
-        var num_offspring = blob_food_count * ds_map_find_value(blob_stats, "offspring_food_ratio");
-        for (var i = 0; i &lt; num_offspring; i++)
+        if (blob_awake) //If at the end of the day they don't have food or are still searching for food
         {
-            var offspr = instance_create(x, y, objBlob);
-            ds_map_copy(offspr.blob_stats, blob_stats);
-            var i_stats = ds_map_find_first(offspr.blob_stats);
-            while (!is_undefined(i_stats))
-            {
-                var stat = ds_map_find_value(offspr.blob_stats, i_stats);
-                var mutation_amt = random(mutation_percent_change * 2) - mutation_percent_change;  //Calculate a random amount this stat will mutate
-                mutation_amt = ((mutation_amt + 100) / 100);
-                stat = stat * mutation_amt;                             //Mutate the stat
-                ds_map_replace(offspr.blob_stats, i_stats, stat);       //Save the mutated stat back into the offspring's gene pool
-                i_stat = ds_map_find_next(offspr.blob_stats, i_stat);   //Get the next stat
-            }
-            offspr.blob_awake = false;
+            instance_destroy();
         }
-        blob_food_count = 0;
-        blob_awake = true;
-        if (DEBUG_BLOBS &amp;&amp; distance_to_point(blob_seek_x, blob_seek_y) &lt; veer_distance)
+        else
         {
-            show_debug_message("Should be moving now");
+            var num_offspring = blob_food_count * ds_map_find_value(blob_stats, "offspring_food_ratio");
+            for (var i = 0; i &lt; num_offspring; i++)
+            {
+                var offspr = instance_create(x, y, objBlob);
+                ds_map_copy(offspr.blob_stats, blob_stats);
+                var i_stats = ds_map_find_first(offspr.blob_stats);
+                while (!is_undefined(i_stats))
+                {
+                    var stat = ds_map_find_value(offspr.blob_stats, i_stats);
+                    var mutation_amt = random(mutation_percent_change * 2) - mutation_percent_change;  //Calculate a random amount this stat will mutate
+                    mutation_amt = ((mutation_amt + 100) / 100);
+                    stat = stat * mutation_amt;                             //Mutate the stat
+                    ds_map_replace(offspr.blob_stats, i_stats, stat);       //Save the mutated stat back into the offspring's gene pool
+                    i_stats = ds_map_find_next(offspr.blob_stats, i_stats);   //Get the next stat
+                }
+                offspr.blob_awake = true;
+            }
+            blob_food_count = 0;
+            blob_awake = true;
         }
     }
 }
@@ -186,6 +189,30 @@ scrField_ReplenishGreens();
     ry = random_range(o_y+buff, o_y+field_height-buff);
     instance_create(rx, ry, objGreens);
 }*/
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Change seed randomly
+randomize();
 </string>
           </argument>
         </arguments>
